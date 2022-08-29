@@ -1,11 +1,5 @@
 import { Schema, model } from "mongoose";
-// modelo de usuario de nuestra base de datos
 
-export interface UserData {
-  id: string;
-  userName: string;
-  passwd: string;
-}
 const userSchema = new Schema({
   userName: {
     type: String,
@@ -22,4 +16,6 @@ const userSchema = new Schema({
   futCards: [Schema.Types.ObjectId],
 });
 
-export const User = model("User", userSchema, "users");
+const User = model("User", userSchema, "users");
+
+export default User;
