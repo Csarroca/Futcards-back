@@ -40,8 +40,8 @@ describe("Given a registerUser controller function", () => {
 
       expect(res.json).toHaveBeenCalledWith({ user: newUser });
     });
-    test("Then if it's rejected create method it should call the next function with the a custom error", async () => {
-      const error = createCustomError;
+    test("Then if it's rejected create method it should call the next function with a custom error", async () => {
+      const error = createCustomError(401, "Error creating new user");
       User.create = jest.fn().mockRejectedValue(error);
 
       const next: NextFunction = jest.fn();
@@ -54,5 +54,8 @@ describe("Given a registerUser controller function", () => {
 
       expect(next).toHaveBeenCalledWith(error);
     });
+  });
+  describe("When a password or a userName is not provided", () => {
+    test("Then it will call the next function with a custom error", () => {});
   });
 });

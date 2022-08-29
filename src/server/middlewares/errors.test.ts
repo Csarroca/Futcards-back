@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
+import createCustomError from "../../utils/createCustomError/createCustomError";
 import generalError, { notFoundError } from "./errors";
-import createCustomError from "../../utils/createCustomError";
 
 describe("Given a generalError function", () => {
   describe("When called with a CustomError as arguments", () => {
