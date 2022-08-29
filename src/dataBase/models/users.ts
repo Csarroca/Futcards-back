@@ -6,10 +6,8 @@ const userSchema = new Schema({
     required: true,
     unique: true,
   },
-  image: {
-    type: String,
-  },
-  passwd: {
+
+  password: {
     type: String,
     required: true,
   },
