@@ -3,3 +3,7 @@ export interface UserData {
   userName: string;
   passwd: string;
 }
+export interface CustomError extends Error {
+  statusCode: number;
+  errorMessage: string;
+}
