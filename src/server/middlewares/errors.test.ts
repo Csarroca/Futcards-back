@@ -64,7 +64,7 @@ describe("Given a notFoundError function", () => {
     } as Partial<Response>;
     test("Then it should call the status method with 404 as status code", async () => {
       const statusCode = 404;
-      await notFoundError(req as Request, res as Response);
+      notFoundError(req as Request, res as Response);
 
       expect(res.status).toHaveBeenCalledWith(statusCode);
     });
@@ -72,7 +72,7 @@ describe("Given a notFoundError function", () => {
     test("The it should call the json method with an error", async () => {
       const error = { error: "Endpoint not found" };
 
-      await notFoundError(req as Request, res as Response);
+      notFoundError(req as Request, res as Response);
 
       expect(res.json).toHaveBeenCalledWith(error);
     });
