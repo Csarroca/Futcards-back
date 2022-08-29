@@ -3,7 +3,7 @@ import morgan from "morgan";
 import cors from "cors";
 import "./loadEnvironment";
 import { startServer, app } from "./server/index";
-import connectDatabase from "./database/index";
+import connectDatabase from "./dataBase/index";
 
 const port = process.env.PORT ?? 4500;
 const urlMongo = process.env.DATABASE;
