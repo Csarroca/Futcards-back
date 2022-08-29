@@ -39,7 +39,7 @@ describe("Given a generalError function", () => {
       } as Partial<Response>;
       const next = jest.fn();
 
-      const customError = createCustomError(undefined, undefined, undefined);
+      const customError = createCustomError(undefined, "", "");
       generalError(
         customError,
         req as Request,
