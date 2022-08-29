@@ -3,7 +3,7 @@ import chalk from "chalk";
 import Debug from "debug";
 import { CustomError } from "../../types/interfaces";
 
-const debug = Debug("robots:generalError");
+const debug = Debug("futCards:generalError");
 
 const generalError = (
   error: CustomError,
@@ -21,6 +21,6 @@ const generalError = (
 };
 
 export const notFoundError = (req: Request, res: Response) => {
-  res.status(404).json({ error: "Enpoint not found" });
+  res.status(404).json({ error: "Endpoint not found" });
 };
 export default generalError;
