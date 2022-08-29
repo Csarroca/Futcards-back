@@ -11,4 +11,5 @@ export interface CustomError extends Error {
 export interface UserRegister {
   userName: string;
   password: string;
+  futCards: string[];
 }
