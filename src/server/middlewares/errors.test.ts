@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
+import createCustomError from "../../utils/createCustomError/createCustomError";
 import generalError, { notFoundError } from "./errors";
-import createCustomError from "../../utils/createCustomError";
 
 describe("Given a generalError function", () => {
   describe("When called with a CustomError as arguments", () => {
@@ -30,6 +30,7 @@ describe("Given a generalError function", () => {
       expect(res.json).toBeCalledWith(error);
     });
   });
+
   describe("When it's called with a custom error but undefined parameters", () => {
     test("Then it should call res.status with a default status of '500'", () => {
       const req = {} as Partial<Request>;

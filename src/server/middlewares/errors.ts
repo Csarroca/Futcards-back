@@ -13,7 +13,7 @@ const generalError = (
   next: NextFunction
 ) => {
   const errorCode = error.statusCode ?? 500;
-  const errorMessage = error.errorMessage ?? "something went wrong";
+  const errorMessage = error.errorMessage || "something went wrong";
 
   debug(chalk.red(error.message));
 
