@@ -9,7 +9,6 @@ describe("Given a registerUser controller function", () => {
     const newUser: UserRegister = {
       userName: "hola",
       password: "123",
-      futCards: [""],
     };
 
     const status = 200;
