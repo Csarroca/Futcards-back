@@ -18,11 +18,11 @@ const registerUser = async (
       "Incorrect userNmae or password"
     );
     next(error);
+    return;
   }
 
-  user.password = await hashCreator(user.password);
-
   try {
+    user.password = await hashCreator(user.password);
     const newUser = await User.create(user);
 
     res.status(200).json({ user: newUser });

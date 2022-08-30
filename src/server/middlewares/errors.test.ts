@@ -30,6 +30,7 @@ describe("Given a generalError function", () => {
       expect(res.json).toBeCalledWith(error);
     });
   });
+
   describe("When it's called with a custom error but undefined parameters", () => {
     test("Then it should call res.status with a default status of '500'", () => {
       const req = {} as Partial<Request>;
