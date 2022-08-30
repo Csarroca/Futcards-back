@@ -6,9 +6,7 @@ module.exports = {
     "src/**/*.ts",
     "!src/index.ts",
     "!src/server/index.ts",
-    "!src/dataBase/models/users.ts",
     "!src/dataBase/index.ts",
     "!src/loadEnvironment.ts",
-    "!src/routters/usersRouter.ts",
   ],
 };
