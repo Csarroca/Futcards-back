@@ -24,7 +24,7 @@ describe("Given a registerUser controller function", () => {
         json: jest.fn(),
       };
 
-      await registerUser(req as Request, res as Response, next as NextFunction);
+      await registerUser(req as Request, res as Response, next);
 
       expect(res.status).toHaveBeenCalledWith(status);
     });
@@ -38,7 +38,7 @@ describe("Given a registerUser controller function", () => {
         json: jest.fn().mockResolvedValue({ user: newUser }),
       };
 
-      await registerUser(req as Request, res as Response, next as NextFunction);
+      await registerUser(req as Request, res as Response, next);
 
       expect(res.json).toHaveBeenCalledWith({ user: newUser });
     });
@@ -53,7 +53,7 @@ describe("Given a registerUser controller function", () => {
         json: jest.fn().mockResolvedValue({ user: newUser }),
       };
 
-      await registerUser(req as Request, res as Response, next as NextFunction);
+      await registerUser(req as Request, res as Response, next);
 
       expect(next).toHaveBeenCalledWith(error);
     });
@@ -69,7 +69,7 @@ describe("Given a registerUser controller function", () => {
       };
 
       const req: Partial<Request> = { body: {} };
-      await registerUser(req as Request, res as Response, next as NextFunction);
+      await registerUser(req as Request, res as Response, next);
       expect(next).toHaveBeenCalledWith(error);
     });
   });
