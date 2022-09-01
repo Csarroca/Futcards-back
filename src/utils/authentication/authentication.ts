@@ -8,4 +8,7 @@ const hashCreator = (text: string) => {
 export const hashCompare = (text: string, hash: string) =>
   bcrypt.compare(text, hash);
 
+export const createToken = (payload: JwtPayload) =>
+  jwt.sign(payload, process.env.SECRET);
+
 export default hashCreator;
