@@ -1,6 +1,6 @@
 import express from "express";
 import { validate } from "express-validation";
-import registerUser from "../controllers/usersControllers";
+import { loginUser, registerUser } from "../controllers/usersControllers";
 import userCredentialsSchema from "../schemas/userCredentialsSchema";
 
 const usersRouter = express.Router();
@@ -11,6 +11,6 @@ usersRouter.post(
   registerUser
 );
 
-usersRouter.post("/login");
+usersRouter.post("/login", loginUser);
 
 export default usersRouter;

@@ -8,7 +8,7 @@ export interface CustomError extends Error {
   errorMessage: string;
 }
 
-export interface UserRegister {
+export interface AuthData {
   userName: string;
   password: string;
 }

@@ -1,12 +1,12 @@
 import { NextFunction, Request, Response } from "express";
 import User from "../../dataBase/models/users";
-import { UserRegister } from "../../types/interfaces";
+import { AuthData } from "../../types/interfaces";
 import createCustomError from "../../utils/createCustomError/createCustomError";
 import registerUser from "./usersControllers";
 
 describe("Given a registerUser controller function", () => {
   describe("When it's invoked", () => {
-    const newUser: UserRegister = {
+    const newUser: AuthData = {
       userName: "hola",
       password: "123",
     };
