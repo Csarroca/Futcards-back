@@ -1,21 +1,20 @@
-import "../loadEnvironment";
 import express from "express";
-import Debug from "debug";
-import chalk from "chalk";
+import morgan from "morgan";
+import cors from "cors";
+import usersRouter from "../routers/usersRouter";
+import generalError, { notFoundError } from "./middlewares/errors";
 
-export const app = express();
+const app = express();
 app.disable("x-powered-by");
-const debug = Debug("futCards:server:index");
 
-export const startServer = (port: number) =>
-  new Promise((resolve, reject) => {
-    const server = app.listen(port, () => {
-      debug(chalk.bgGreen(`server listening on port http://localhost:${port}`));
-      resolve(true);
-    });
+app.use(cors());
+app.disable("x-powered-by");
+app.use(express.json());
+app.use(morgan("dev"));
 
-    server.on("error", (error) => {
-      debug(chalk.bgRed("Error  connecting to database: ", error.message));
-      reject(error);
-    });
-  });
+app.use("/users", usersRouter);
+
+app.use(notFoundError);
+app.use(generalError);
+
+export default app;
