@@ -1,7 +1,7 @@
 export interface UserData {
   id: string;
   userName: string;
-  passwd: string;
+  password: string;
 }
 export interface CustomError extends Error {
   statusCode: number;

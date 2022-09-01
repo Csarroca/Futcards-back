@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import User from "../../dataBase/models/users";
 import { JwtPayload, AuthData, UserData } from "../../types/interfaces";
-import hashCreator, { createToken, hashCompare } from "../../utils/auth/auth";
+import { hashCreator, createToken, hashCompare } from "../../utils/auth/auth";
 import createCustomError from "../../utils/createCustomError/createCustomError";
 
 export const registerUser = async (
@@ -10,16 +10,6 @@ export const registerUser = async (
   next: NextFunction
 ) => {
   const user: AuthData = req.body;
-
-  if (!user.userName || !user.password) {
-    const error = createCustomError(
-      400,
-      "Incorrect userName or password",
-      "Incorrect userNmae or password"
-    );
-    next(error);
-    return;
-  }
 
   try {
     user.password = await hashCreator(user.password);
@@ -72,7 +62,10 @@ export const loginUser = async (
   }
 
   try {
-    const isPasswdValid = await hashCompare(user.password, findUsers[0].passwd);
+    const isPasswdValid = await hashCompare(
+      user.password,
+      findUsers[0].password
+    );
     if (!isPasswdValid) {
       userError.message = "Password invalid";
       next(userError);
@@ -82,7 +75,7 @@ export const loginUser = async (
     const finalError = createCustomError(
       403,
       `name:${(error as Error).name} ; nessage ${(error as Error).message}`,
-      "user or password not valid"
+      "user or password not valids"
     );
     next(finalError);
     return;

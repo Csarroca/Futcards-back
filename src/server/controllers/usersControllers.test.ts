@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import User from "../../dataBase/models/users";
 import { AuthData } from "../../types/interfaces";
 import createCustomError from "../../utils/createCustomError/createCustomError";
-import registerUser from "./usersControllers";
+import { registerUser } from "./usersControllers";
 
 describe("Given a registerUser controller function", () => {
   describe("When it's invoked", () => {
