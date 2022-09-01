@@ -44,8 +44,6 @@ export const loginUser = async (
   );
   let findUsers: Array<UserData>;
   try {
-    // hacemos find para ver si existe el usuario el schema tiene user como propiedad y aqui tenemos userName en la dataiterface esto devuelve una pseudopromesa y por eso tenemos que hacer async await
-    // esto devuelve una array vacio si no lo encueentra o array de 1 si esta
     findUsers = await User.find({ userName: user.userName });
     if (findUsers.length === 0) {
       next(userError);
