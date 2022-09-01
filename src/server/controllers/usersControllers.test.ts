@@ -11,7 +11,7 @@ describe("Given a registerUser controller function", () => {
       password: "123",
     };
 
-    const status = 200;
+    const status = 201;
 
     const req: Partial<Request> = { body: newUser };
 
