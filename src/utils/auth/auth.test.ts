@@ -2,7 +2,7 @@ import bcrypt from "bcryptjs";
 import { JwtPayload } from "../../types/interfaces";
 import { hashCreator, createToken, hashCompare } from "./auth";
 
-const mockSign = jest.fn().mockReturnValue("User");
+const mockSign = jest.fn().mockReturnValue("user");
 
 jest.mock("jsonwebtoken", () => ({
   sign: (payload: JwtPayload) => mockSign(payload),
@@ -19,7 +19,7 @@ describe("Given a createToken function", () => {
       const returnedValue = createToken(mockToken);
 
       expect(mockSign).toHaveBeenCalledWith(mockToken);
-      expect(returnedValue).toBe("#");
+      expect(returnedValue).toBe("user");
     });
   });
 });

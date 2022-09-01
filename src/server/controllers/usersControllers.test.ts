@@ -59,7 +59,10 @@ describe("Given a registerUser controller function", () => {
   });
   describe("When a password or a userName is not provided", () => {
     test("Then it will call the next function with a custom error", async () => {
-      const error = createCustomError(400, "Incorrect userName or password");
+      const error = createCustomError(
+        400,
+        "Illegal arguments: undefined, number"
+      );
 
       const next: NextFunction = jest.fn();
       const res: Partial<Response> = {
