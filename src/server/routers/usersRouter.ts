@@ -11,4 +11,6 @@ usersRouter.post(
   registerUser
 );
 
+usersRouter.post("/login");
+
 export default usersRouter;

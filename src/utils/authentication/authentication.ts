@@ -1,4 +1,7 @@
+import jwt from "jsonwebtoken";
+import "../../loadEnvironment";
 import bcrypt from "bcryptjs";
+import { JwtPayload } from "../../types/interfaces";
 
 const hashCreator = (text: string) => {
   const salt = 10;
