@@ -1,0 +1,84 @@
+{
+  "info": {
+    "_postman_id": "9a0f94ed-d92d-4769-a765-e711a4d1a912",
+    "name": "FutCards",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "22253188"
+  },
+  "item": [
+    {
+      "name": "pruebaLocal register",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n \"userName\": \"prueba\",\n \"password\": \"12345\"\n\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4100/users/register",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4100",
+          "path": ["users", "register"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Prueba heroku register",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n \"userName\": \"adriansitopumba\",\n \"password\": \"12345\"\n\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{prod}}users/register",
+          "host": ["{{prod}}users"],
+          "path": ["register"]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "prod",
+      "value": "https://csarroca-final-project-202207.herokuapp.com/",
+      "type": "string"
+    },
+    {
+      "key": "local",
+      "value": "http://localhost:4100/",
+      "type": "string"
+    }
+  ]
+}
