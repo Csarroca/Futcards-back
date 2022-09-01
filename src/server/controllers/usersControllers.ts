@@ -49,17 +49,7 @@ export const loginUser = async (
       next(userError);
       return;
     }
-  } catch (error) {
-    const finalError = createCustomError(
-      403,
-      `name:${(error as Error).name} ; nessage ${(error as Error).message}`,
-      "user or password not valid"
-    );
-    next(finalError);
-    return;
-  }
 
-  try {
     const isPasswdValid = await hashCompare(
       user.password,
       findUsers[0].password
@@ -72,8 +62,10 @@ export const loginUser = async (
   } catch (error) {
     const finalError = createCustomError(
       403,
-      `name:${(error as Error).name} ; nessage ${(error as Error).message}`,
-      "user or password not valids"
+      error.message === ""
+        ? "User invalid"
+        : `name:${(error as Error).name} ; message ${(error as Error).message}`,
+      "user or password not valid"
     );
     next(finalError);
     return;

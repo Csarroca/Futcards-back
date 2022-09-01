@@ -1,8 +1,17 @@
 import { NextFunction, Request, Response } from "express";
 import User from "../../dataBase/models/users";
-import { AuthData } from "../../types/interfaces";
+import { AuthData, JwtPayload } from "../../types/interfaces";
+import { createToken } from "../../utils/auth/auth";
 import createCustomError from "../../utils/createCustomError/createCustomError";
-import { registerUser } from "./usersControllers";
+import { loginUser, registerUser } from "./usersControllers";
+
+let hashCompareValue: boolean = true;
+
+jest.mock("../../utils/auth/auth", () => ({
+  ...jest.requireActual("../../utils/auth/auth"),
+  hashCompare: () => hashCompareValue,
+  createToken: jest.fn().mockReturnValue(""),
+}));
 
 describe("Given a registerUser controller function", () => {
   describe("When it's invoked", () => {
@@ -74,5 +83,101 @@ describe("Given a registerUser controller function", () => {
       await registerUser(req as Request, res as Response, next);
       expect(next).toHaveBeenCalledWith(error);
     });
+  });
+});
+
+describe("Given a loginUser controller function", () => {
+  beforeEach(() => jest.clearAllMocks());
+
+  const mockedReqBody = {
+    userName: "paco",
+    password: "paco12345",
+  };
+
+  const req = {
+    body: mockedReqBody,
+  } as Partial<Request>;
+
+  const res = {
+    status: jest.fn().mockReturnThis(),
+    json: jest.fn(),
+  } as Partial<Response>;
+
+  const next = jest.fn() as Partial<NextFunction>;
+
+  User.find = jest.fn().mockReturnValue([mockedReqBody]);
+  describe("When its invoke", () => {
+    test("Then it should call the status method of the response with a status 200 if hash compare resolves true", async () => {
+      hashCompareValue = true;
+      await loginUser(req as Request, res as Response, next as NextFunction);
+
+      const statusCode = 200;
+
+      expect(res.status).toHaveBeenCalledWith(statusCode);
+    });
+  });
+  test("It should call the next function with the created error if the hashcompare password resolved as false", async () => {
+    hashCompareValue = false;
+    const customError = createCustomError(
+      400,
+      "Password invalid",
+      "Password error"
+    );
+
+    await loginUser(req as Request, res as Response, next as NextFunction);
+
+    expect(next).toHaveBeenCalledWith(customError);
+  });
+
+  test("Then it should call the json method of the response", async () => {
+    hashCompareValue = true;
+    await loginUser(req as Request, res as Response, next as NextFunction);
+
+    const payLoad: JwtPayload = {
+      id: "678678",
+      userName: "paco",
+    };
+
+    const responseData = {
+      user: { token: createToken(payLoad) },
+    };
+
+    expect(res.json).toHaveBeenCalledWith(responseData);
+  });
+
+  test("It should call the next function with the created error if it wasn't posible to find the user", async () => {
+    mockedReqBody.userName = "paco";
+    mockedReqBody.password = "paco12345";
+    hashCompareValue = true;
+
+    User.find = jest.fn().mockReturnValue([]);
+
+    await loginUser(req as Request, res as Response, next as NextFunction);
+
+    const customError = createCustomError(
+      403,
+      "User not found",
+      "Could not find user"
+    );
+
+    expect(next).toHaveBeenCalledWith(customError);
+  });
+  test("It should call the next function with the created error if an user find throw an error", async () => {
+    mockedReqBody.userName = "paco";
+    mockedReqBody.userName = "paco12345";
+
+    hashCompareValue = true;
+
+    User.find = jest.fn().mockRejectedValue(new Error());
+
+    await loginUser(req as Request, res as Response, next as NextFunction);
+
+    const customError = createCustomError(
+      400,
+      "User invalid",
+      "user or password not valid"
+    );
+
+    expect(next).toHaveBeenCalledWith(customError);
   });
 });
