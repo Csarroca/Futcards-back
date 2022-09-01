@@ -21,7 +21,7 @@ afterAll(async () => {
 describe("Given the  endpoint /users/register with method POST", () => {
   describe("When it receives a request with userName 'Paco' and password 'paco123'", () => {
     test("Then it should response with status 201 and the user data", async () => {
-      const user = { userName: "Paco", password: "paco123" };
+      const user = { userName: "Paco", password: "paco12345" };
       const expectedStatus = 201;
 
       const response = await request(app)
@@ -29,6 +29,19 @@ describe("Given the  endpoint /users/register with method POST", () => {
         .send(user)
         .expect(expectedStatus);
       expect(response.statusCode).toEqual(expectedStatus);
+    });
+  });
+  describe("When it receives a request without password", () => {
+    test("Then it should response with status 400 and a message 'Wrong data'", async () => {
+      const message = "Wrong data";
+      const { body } = await request(app)
+        .post("/users/register")
+        .send({
+          userName: "paco",
+        })
+        .expect(400);
+
+      expect(body).toHaveProperty("error", message);
     });
   });
 });
