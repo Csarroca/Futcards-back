@@ -15,8 +15,8 @@ const getAllCards = async (req: Request, res: Response, next: NextFunction) => {
   } catch (error) {
     const newError = createCustomError(
       404,
-      "No projects found",
-      `Error while getting projects: ${error.message}`
+      "No cards found",
+      `Error loading cards: ${error.message}`
     );
     next(newError);
   }

@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import Card from "../../../dataBase/models/cards";
+import mockedCard from "../../../test-utils/mocks/mockCard";
 import createCustomError from "../../../utils/createCustomError/createCustomError";
 import getAllCards from "./cardsControllers";
 
@@ -10,7 +11,7 @@ describe("Given a getAllCards function", () => {
     json: jest.fn(),
   } as Partial<Response>;
   const next = jest.fn() as NextFunction;
-  Card.find = jest.fn().mockReturnValue([mockProject]);
+  Card.find = jest.fn().mockReturnValue([mockedCard]);
 
   describe("When called with a request, a response and a next function", () => {
     test("Then it should respond with a status of 201", async () => {
@@ -21,10 +22,9 @@ describe("Given a getAllCards function", () => {
       expect(res.status).toHaveBeenCalledWith(expectedStatus);
     });
 
-    test(`Then it should respond with all the projects found`, async () => {
-      const expectedResponse = {
-        projects: [mockProject],
-      };
+    test(`Then it should respond with all the cards found`, async () => {
+      const expectedResponse = [mockedCard];
+
       await getAllCards(req as Request, res as Response, next);
 
       expect(res.json).toHaveBeenCalledWith(expectedResponse);
@@ -37,27 +37,23 @@ describe("Given a getAllCards function", () => {
 
       const expectedError = createCustomError(
         404,
-        "No projects found",
-        "Error while getting projects: "
+        "No cards found",
+        "Error to load cards"
       );
 
       await getAllCards(req as Request, res as Response, next);
 
       expect(next).toHaveBeenCalledWith(expectedError);
-
-      const nextCalled = (next as jest.Mock<any, any>).mock.calls[0][0];
-
-      expect(nextCalled.privateMessage).toBe(expectedError.errorMessage);
     });
   });
 
   describe("When called but there are no projects avaliable", () => {
-    test("Then it should respond informing that there are no projects with code ", async () => {
+    test("Then it should respond with a message 'No cards found' ", async () => {
       const expectedStatus = 404;
       Card.find = jest.fn().mockReturnValue([]);
 
       const expectedResponse = {
-        cards: "No cards found",
+        Cards: "No cards found",
       };
 
       await getAllCards(req as Request, res as Response, next);
