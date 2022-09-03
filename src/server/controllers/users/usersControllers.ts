@@ -1,8 +1,12 @@
 import { NextFunction, Request, Response } from "express";
-import User from "../../dataBase/models/users";
-import { JwtPayload, AuthData, UserData } from "../../types/interfaces";
-import { hashCreator, createToken, hashCompare } from "../../utils/auth/auth";
-import createCustomError from "../../utils/createCustomError/createCustomError";
+import User from "../../../dataBase/models/users";
+import { JwtPayload, AuthData, UserData } from "../../../types/interfaces";
+import {
+  hashCreator,
+  createToken,
+  hashCompare,
+} from "../../../utils/auth/auth";
+import createCustomError from "../../../utils/createCustomError/createCustomError";
 
 export const registerUser = async (
   req: Request,
@@ -21,7 +25,7 @@ export const registerUser = async (
     res.status(201).json({ user: newUser });
   } catch (error) {
     const customError = createCustomError(
-      401,
+      409,
       error.message,
       "Error creating new user"
     );

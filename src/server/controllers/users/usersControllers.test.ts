@@ -1,14 +1,14 @@
 import { NextFunction, Request, Response } from "express";
-import User from "../../dataBase/models/users";
-import { AuthData, JwtPayload } from "../../types/interfaces";
-import { createToken } from "../../utils/auth/auth";
-import createCustomError from "../../utils/createCustomError/createCustomError";
+import User from "../../../dataBase/models/users";
+import { AuthData, JwtPayload } from "../../../types/interfaces";
+import { createToken } from "../../../utils/auth/auth";
+import createCustomError from "../../../utils/createCustomError/createCustomError";
 import { loginUser, registerUser } from "./usersControllers";
 
 let hashCompareValue: boolean = true;
 
-jest.mock("../../utils/auth/auth", () => ({
-  ...jest.requireActual("../../utils/auth/auth"),
+jest.mock("../../../utils/auth/auth", () => ({
+  ...jest.requireActual("../../../utils/auth/auth"),
   hashCompare: () => hashCompareValue,
   createToken: jest.fn().mockReturnValue(""),
 }));
