@@ -18,10 +18,6 @@ export interface JwtPayload {
   userName: string;
 }
 
-export interface CustomRequest extends Request {
-  payload: JwtPayload;
-}
-
 export interface CardData {
   id: string;
   name: string;
