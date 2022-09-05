@@ -5,7 +5,7 @@ import authentication, { CustomRequest } from "./authentication";
 
 describe("Given a authentication middleware", () => {
   describe("When called", () => {
-    test("It should send an error when there is no Authentication header or when the Authentication doesn't start with bearer", () => {
+    test("It should send an error when there is no Authentication header", () => {
       const mockReturn = jest.fn().mockReturnValue("badRequest");
       const req = { get: mockReturn } as Partial<CustomRequest>;
       const res = {
@@ -23,7 +23,7 @@ describe("Given a authentication middleware", () => {
       expect(next).toHaveBeenCalledWith(customError);
     });
 
-    test("It should send an error when there is no Authentication header or when the Authentication doesn't start with bearer", () => {
+    test("It should send an error or when the Authentication doesn't start with bearer", () => {
       const mockReturn = jest.fn().mockReturnValue("Bearer fakeToken");
       const req = { get: mockReturn } as Partial<CustomRequest>;
       const res = {
