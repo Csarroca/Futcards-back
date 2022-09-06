@@ -11,7 +11,7 @@ describe("Given a getAllCards function", () => {
     json: jest.fn(),
   } as Partial<Response>;
   const next = jest.fn() as NextFunction;
-  Card.find = jest.fn().mockReturnValue([mockedCard]);
+  Card.find = jest.fn().mockResolvedValue([mockedCard]);
 
   describe("When called with a request, a response and a next function", () => {
     test("Then it should respond with a status of 201", async () => {
