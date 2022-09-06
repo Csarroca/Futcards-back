@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import Card from "../../../dataBase/models/cards";
 import mockedCard from "../../../test-utils/mocks/mockCard";
 import createCustomError from "../../../utils/createCustomError/createCustomError";
-import getAllCards from "./cardsControllers";
+import { getAllCards } from "./cardsControllers";
 
 describe("Given a getAllCards function", () => {
   const req = {} as Partial<Request>;
