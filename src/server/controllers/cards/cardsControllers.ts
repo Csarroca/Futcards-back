@@ -32,19 +32,19 @@ export const deleteById = async (
   res: Response,
   next: NextFunction
 ) => {
-  const idExercise = req.params.id;
+  const cardId = req.params.id;
   debug("Deleting card");
 
   try {
-    await Card.findByIdAndDelete(idExercise);
+    await Card.findByIdAndDelete(cardId);
     res.status(200).json({ message: "Successfully deleted card" });
 
     debug("Card deleted");
   } catch (error) {
     const newError = createCustomError(
       404,
-      "No exercises found",
-      "Error deleting exercise"
+      "No cards found with that id",
+      "Error deleting card"
     );
     next(newError);
   }
