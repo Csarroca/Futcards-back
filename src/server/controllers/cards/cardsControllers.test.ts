@@ -91,20 +91,19 @@ describe("Given a deleteById function controller", () => {
     });
   });
 
-  describe("When revices an invalid or empty id", () => {
+  describe("When recives an invalid or empty id", () => {
     test("Then it should respon with a message 'No cards found' ", async () => {
+      jest.clearAllMocks();
       const request = {
-        params: { idd: "" },
+        params: { id: "" },
       } as Partial<Request>;
-
-      Card.findByIdAndDelete = jest.fn().mockResolvedValue(request);
-      const expectedStatus = 404;
 
       const expectedError = createCustomError(
         404,
-        "No cards found",
+        "No cards found with that id",
         "Error to load cards"
       );
+      Card.findByIdAndDelete = jest.fn().mockRejectedValue(request);
 
       await deleteById(
         request as Request,
@@ -112,7 +111,6 @@ describe("Given a deleteById function controller", () => {
         next as NextFunction
       );
 
-      expect(res.status).toHaveBeenCalledWith(expectedStatus);
       expect(next).toHaveBeenCalledWith(expectedError);
     });
   });

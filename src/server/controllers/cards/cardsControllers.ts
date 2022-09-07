@@ -32,11 +32,11 @@ export const deleteById = async (
   res: Response,
   next: NextFunction
 ) => {
-  const cardId = req.params.id;
+  const idCard = req.params.id;
   debug("Deleting card");
 
   try {
-    await Card.findByIdAndDelete(cardId);
+    await Card.findByIdAndDelete(idCard);
     res.status(200).json({ message: "Successfully deleted card" });
 
     debug("Card deleted");
