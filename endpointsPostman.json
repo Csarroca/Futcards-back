@@ -37,7 +37,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\n \"userName\": \"adriansitopumba\",\n \"password\": \"12345\"\n\n}",
+          "raw": "{\n \"userName\": \"admin\",\n \"password\": \"admin\"\n\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -48,6 +48,167 @@
           "raw": "{{prod}}users/register",
           "host": ["{{prod}}users"],
           "path": ["register"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Prueba login local back",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"userName\": \"admin\",\n    \"password\": \"admin1234\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4100/users/login",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4100",
+          "path": ["users", "login"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Prueba heroku login back",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMTBiNjBkMGUwOTU3NmJjMWE5Y2Y0NSIsInVzZXJOYW1lIjoiYWRtaW4iLCJpYXQiOjE2NjIxMTU1MDh9.JIGcDnfpE1sFfezZV3QxpL93xJaKoFCV5D21I5mtCx0",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"userName\": \"admin\",\n    \"password\": \"admin1234\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{prod}}users/login",
+          "host": ["{{prod}}users"],
+          "path": ["login"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Prueba local getAllCards back",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMTBiNjBkMGUwOTU3NmJjMWE5Y2Y0NSIsInVzZXJOYW1lIjoiYWRtaW4iLCJpYXQiOjE2NjIxMTU1MDh9.JIGcDnfpE1sFfezZV3QxpL93xJaKoFCV5D21I5mtCx0",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4100/cards/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4100",
+          "path": ["cards", ""]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "prueba getallCards prod back",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMTBiNjBkMGUwOTU3NmJjMWE5Y2Y0NSIsInVzZXJOYW1lIjoiYWRtaW4iLCJpYXQiOjE2NjIxMTU1MDh9.JIGcDnfpE1sFfezZV3QxpL93xJaKoFCV5D21I5mtCx0",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{prod}}cards",
+          "host": ["{{prod}}cards"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "prueba Delete back local",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMTBiNjBkMGUwOTU3NmJjMWE5Y2Y0NSIsInVzZXJOYW1lIjoiYWRtaW4iLCJpYXQiOjE2NjIxMTU1MDh9.JIGcDnfpE1sFfezZV3QxpL93xJaKoFCV5D21I5mtCx0",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4100/cards/6317561e71d358dddd51bb17",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4100",
+          "path": ["cards", "6317561e71d358dddd51bb17"]
         }
       },
       "response": []
