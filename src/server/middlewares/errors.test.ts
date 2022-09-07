@@ -57,7 +57,7 @@ describe("Given a generalError function", () => {
 });
 
 describe("Given a notFoundError function", () => {
-  describe("When it´s called with  a responose and a request", () => {
+  describe("When it's called with  a responose and a request", () => {
     const req = {} as Partial<Request>;
     const res = {
       status: jest.fn().mockReturnThis(),
