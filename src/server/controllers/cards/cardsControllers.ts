@@ -64,8 +64,8 @@ export const createCard = async (
   try {
     const newCard = await Card.create(card);
 
-    const user = await User.findById(req.payload.id);
-    user.futCards.push(newCard.id);
+    const user = await User.findById(req.payload.id.toString());
+    user.futCards.push(newCard.id.toString());
     await user.save();
 
     res.status(201).json({ card: newCard });
@@ -75,7 +75,6 @@ export const createCard = async (
       error.message,
       "Error creating new card"
     );
-    // deberia poner un toasty aqui!??
 
     next(customError);
   }
