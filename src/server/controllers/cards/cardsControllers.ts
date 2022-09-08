@@ -59,13 +59,13 @@ export const createCard = async (
 ) => {
   const card = req.body;
 
-  card.owner = req.payload.id;
+  card.owner = req.payload.id.toString();
 
   try {
     const newCard = await Card.create(card);
 
-    const user = await User.findById(req.payload.id.toString());
-    user.futCards.push(newCard.id.toString());
+    const user = await User.findById(req.payload.id);
+    user.futCards.push(newCard.id);
     await user.save();
 
     res.status(201).json({ card: newCard });
