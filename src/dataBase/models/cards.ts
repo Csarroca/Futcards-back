@@ -7,7 +7,6 @@ const robotSchema = new Schema({
   },
   image: {
     type: String,
-    required: true,
   },
 
   position: {
@@ -27,7 +26,6 @@ const robotSchema = new Schema({
 
   overall: {
     type: Number,
-    required: true,
   },
 
   physicall: {
