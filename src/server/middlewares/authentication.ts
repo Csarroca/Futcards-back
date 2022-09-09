@@ -18,6 +18,7 @@ const authentication = (
 ) => {
   const customError = createCustomError(400, "Authentication error");
   const dataAuthentication = req.get("Authorization");
+
   debug(chalk.bgBlue(req));
   if (!dataAuthentication || !dataAuthentication.startsWith("Bearer ")) {
     next(customError);

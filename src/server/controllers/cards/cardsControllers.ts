@@ -51,7 +51,6 @@ export const deleteById = async (
     next(newError);
   }
 };
-
 export const createCard = async (
   req: CustomRequest,
   res: Response,
@@ -65,6 +64,7 @@ export const createCard = async (
     const newCard = await Card.create(card);
 
     const user = await User.findById(req.payload.id);
+
     user.futCards.push(newCard.id);
     await user.save();
 
