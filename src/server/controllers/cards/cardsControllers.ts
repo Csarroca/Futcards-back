@@ -79,3 +79,26 @@ export const createCard = async (
     next(customError);
   }
 };
+
+export const getById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const idCard = req.params.id;
+  debug("Finding card");
+
+  try {
+    await Card.findById(idCard);
+    res.status(200).json({ message: "Successfully get the card" });
+
+    debug("Card deleted");
+  } catch (error) {
+    const newError = createCustomError(
+      404,
+      "No cards found with that id",
+      "Error geting card"
+    );
+    next(newError);
+  }
+};

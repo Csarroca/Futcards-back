@@ -2,7 +2,8 @@ import { NextFunction, Request, Response } from "express";
 import Card from "../../../dataBase/models/cards";
 import mockedCard from "../../../test-utils/mocks/mockCard";
 import createCustomError from "../../../utils/createCustomError/createCustomError";
-import { deleteById, getAllCards } from "./cardsControllers";
+import { CustomRequest } from "../../middlewares/authentication";
+import { createCard, deleteById, getAllCards } from "./cardsControllers";
 
 describe("Given a getAllCards function controller", () => {
   const req = {} as Partial<Request>;
@@ -112,6 +113,60 @@ describe("Given a deleteById function controller", () => {
       );
 
       expect(next).toHaveBeenCalledWith(expectedError);
+    });
+  });
+});
+describe("Given a createCard function controller", () => {
+  beforeEach(() => jest.clearAllMocks());
+  const next = jest.fn() as Partial<NextFunction>;
+
+  const cardJson = JSON.stringify(mockedCard);
+  const req = {
+    body: { card: cardJson },
+  } as Partial<Request>;
+
+  const res = {
+    status: jest.fn().mockReturnThis(),
+    json: jest.fn(),
+  } as Partial<Response>;
+
+  Card.create = jest.fn().mockReturnValue(mockedCard);
+
+  const errorCustom = createCustomError(400, "", "Error creating new card");
+  describe("When it's called with a request, response and a Next function", () => {
+    xtest("Then it should call the status method of the response", async () => {
+      createCard(req as CustomRequest, res as Response, next as NextFunction);
+
+      const statusCode = 201;
+
+      expect(res.status).toHaveBeenCalledWith(statusCode);
+    });
+    xtest("Then it should call the json method of the response", async () => {
+      await createCard(
+        req as CustomRequest,
+        res as Response,
+        next as NextFunction
+      );
+
+      expect(res.json).toHaveBeenCalledWith({ newCard: mockedCard });
+    });
+
+    xtest("It should call the next function with the created error if it wasn't posible to create the user", async () => {
+      const expectedError = createCustomError(
+        404,
+        "No cards found",
+        "Error to load cards"
+      );
+
+      Card.create = jest.fn().mockRejectedValue(expectedError);
+
+      await createCard(
+        req as CustomRequest,
+        res as Response,
+        next as NextFunction
+      );
+
+      expect(next).toHaveBeenCalledWith(errorCustom);
     });
   });
 });
