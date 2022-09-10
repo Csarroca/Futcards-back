@@ -5,6 +5,10 @@ import createCustomError from "../../../utils/createCustomError/createCustomErro
 import { CustomRequest } from "../../middlewares/authentication";
 import { createCard, deleteById, getAllCards } from "./cardsControllers";
 
+beforeEach(() => {
+  jest.clearAllMocks();
+});
+
 describe("Given a getAllCards function controller", () => {
   const req = {} as Partial<Request>;
   const res = {
@@ -94,7 +98,6 @@ describe("Given a deleteById function controller", () => {
 
   describe("When recives an invalid or empty id", () => {
     test("Then it should respon with a message 'No cards found' ", async () => {
-      jest.clearAllMocks();
       const request = {
         params: { id: "" },
       } as Partial<Request>;
@@ -134,14 +137,14 @@ describe("Given a createCard function controller", () => {
 
   const errorCustom = createCustomError(400, "", "Error creating new card");
   describe("When it's called with a request, response and a Next function", () => {
-    xtest("Then it should call the status method of the response", async () => {
+    test("Then it should call the status method of the response", async () => {
       createCard(req as CustomRequest, res as Response, next as NextFunction);
 
       const statusCode = 201;
 
       expect(res.status).toHaveBeenCalledWith(statusCode);
     });
-    xtest("Then it should call the json method of the response", async () => {
+    test("Then it should call the json method of the response", async () => {
       await createCard(
         req as CustomRequest,
         res as Response,
@@ -151,7 +154,7 @@ describe("Given a createCard function controller", () => {
       expect(res.json).toHaveBeenCalledWith({ newCard: mockedCard });
     });
 
-    xtest("It should call the next function with the created error if it wasn't posible to create the user", async () => {
+    test("It should call the next function with the created error if it wasn't posible to create the user", async () => {
       const expectedError = createCustomError(
         404,
         "No cards found",

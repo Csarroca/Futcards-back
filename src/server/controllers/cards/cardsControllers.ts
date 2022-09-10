@@ -58,7 +58,7 @@ export const createCard = async (
 ) => {
   const card = req.body;
 
-  card.owner = req.payload.id.toString();
+  card.owner = req.payload.id;
 
   try {
     const newCard = await Card.create(card);
@@ -89,10 +89,10 @@ export const getById = async (
   debug("Finding card");
 
   try {
-    await Card.findById(idCard);
-    res.status(200).json({ message: "Successfully get the card" });
+    const card = await Card.findById(idCard);
+    res.status(200).json({ card });
 
-    debug("Card deleted");
+    debug("Card Found");
   } catch (error) {
     const newError = createCustomError(
       404,
