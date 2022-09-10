@@ -58,13 +58,12 @@ export const createCard = async (
 ) => {
   const card = req.body;
 
-  card.owner = req.payload.id.toString();
+  card.owner = req.payload.id;
 
   try {
     const newCard = await Card.create(card);
 
     const user = await User.findById(req.payload.id);
-
     user.futCards.push(newCard.id);
     await user.save();
 
@@ -77,5 +76,28 @@ export const createCard = async (
     );
 
     next(customError);
+  }
+};
+
+export const getById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const idCard = req.params.id;
+  debug("Finding card");
+
+  try {
+    const card = await Card.findById(idCard);
+    res.status(200).json({ card });
+
+    debug("Card Found");
+  } catch (error) {
+    const newError = createCustomError(
+      404,
+      "No cards found with that id",
+      "Error geting card"
+    );
+    next(newError);
   }
 };
