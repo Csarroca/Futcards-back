@@ -64,7 +64,6 @@ export const createCard = async (
     const newCard = await Card.create(card);
 
     const user = await User.findById(req.payload.id);
-
     user.futCards.push(newCard.id);
     await user.save();
 
