@@ -2,6 +2,7 @@ import debug from "debug";
 import { NextFunction, Request, Response } from "express";
 import Card from "../../../dataBase/models/cards";
 import User from "../../../dataBase/models/users";
+import { CardData } from "../../../types/interfaces";
 import createCustomError from "../../../utils/createCustomError/createCustomError";
 import { CustomRequest } from "../../middlewares/authentication";
 
@@ -99,5 +100,66 @@ export const getById = async (
       "Error geting card"
     );
     next(newError);
+  }
+};
+
+export const updateCard = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { id } = req.params;
+  const {
+    age,
+    defense,
+    dribbling,
+    foot,
+    height,
+    image,
+    nacionallity,
+    name,
+    overall,
+    pace,
+    passing,
+    physicall,
+    position,
+    shooting,
+    team,
+  }: CardData = req.body;
+
+  try {
+    const cardToUpdate = await Card.findById({ _id: id });
+
+    const cardUpdated = {
+      age,
+      defense,
+      dribbling,
+      foot,
+      height,
+      id,
+      image,
+      nacionallity,
+      name,
+      overall,
+      owner: cardToUpdate.id,
+      pace,
+      passing,
+      physicall,
+      position,
+      shooting,
+      team,
+    };
+
+    await Card.findByIdAndUpdate(id, cardUpdated);
+    const newCardUpdated = await Card.findById(id);
+    const statusCode = 201;
+    res.status(statusCode).json({ newCardUpdated });
+  } catch (error) {
+    const errorCustom = createCustomError(
+      400,
+      "Error updating your card",
+      "Could not update your card"
+    );
+    next(errorCustom);
   }
 };
