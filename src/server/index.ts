@@ -12,6 +12,7 @@ app.use(cors());
 app.disable("x-powered-by");
 app.use(express.json());
 app.use(morgan("dev"));
+app.use(express.json());
 
 app.use("/users", usersRouter);
 app.use("/cards", cardsRouter);

@@ -1,15 +1,32 @@
 import { NextFunction, Request, Response } from "express";
 
+import fs from "fs/promises";
+import path from "path";
+import createCustomError from "../../utils/createCustomError/createCustomError";
+
 const parseData = async (req: Request, res: Response, next: NextFunction) => {
-  const newCard = req.body.card;
+  try {
+    const newCard = req.body.card;
 
-  const cardObject = await JSON.parse(newCard);
+    const cardObject = await JSON.parse(newCard);
 
-  cardObject.image = req.file.filename;
+    const newName = `${Date.now()}${req.file.originalname}`;
+    cardObject.picture = newName;
 
-  req.body = cardObject;
+    await fs.rename(
+      path.join("uploads", req.file.filename),
+      path.join("uploads", newName)
+    );
 
-  next();
+    cardObject.image = req.file.filename;
+
+    req.body = cardObject;
+
+    next();
+  } catch (error) {
+    const customError = createCustomError(404, "Data not foud", "Missing data");
+    next(customError);
+  }
 };
 
 export default parseData;
