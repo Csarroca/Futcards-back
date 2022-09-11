@@ -52,6 +52,7 @@ export const deleteById = async (
     next(newError);
   }
 };
+
 export const createCard = async (
   req: CustomRequest,
   res: Response,
@@ -59,14 +60,13 @@ export const createCard = async (
 ) => {
   const card = req.body;
 
-  card.owner = req.payload.id;
-
   try {
     const newCard = await Card.create(card);
 
-    const user = await User.findById(req.payload.id);
-    user.futCards.push(newCard.id);
-    await user.save();
+    const user = await User.findById(card.owner);
+    await User.findByIdAndUpdate(card.owner, {
+      cards: [...user.futCards, newCard.id],
+    });
 
     res.status(201).json({ card: newCard });
   } catch (error) {

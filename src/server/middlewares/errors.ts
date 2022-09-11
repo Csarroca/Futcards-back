@@ -15,6 +15,7 @@ const generalError = (
 ) => {
   let errorCode;
   let errorMessage;
+
   if (error instanceof ValidationError) {
     debug(chalk.red("Request validation errors: "));
     error.details.body.forEach((errorInfo) => {
