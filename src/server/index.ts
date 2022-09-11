@@ -10,8 +10,8 @@ app.disable("x-powered-by");
 
 app.use(cors());
 app.disable("x-powered-by");
-app.use(express.json());
 app.use(morgan("dev"));
+app.use(express.static("uploads"));
 app.use(express.json());
 
 app.use("/users", usersRouter);
