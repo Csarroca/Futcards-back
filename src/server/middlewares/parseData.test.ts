@@ -1,12 +1,15 @@
 import { NextFunction, Request, Response } from "express";
+import fs from "fs/promises";
+import path from "path";
 import { ProtoCardData } from "../../types/interfaces";
+import createCustomError from "../../utils/createCustomError/createCustomError";
 import parseData from "./parseData";
 
-describe("Given a parseData moddleware", () => {
+describe("Given a parseData middleware", () => {
   describe("When called with a request, a response and a next function as arguments", () => {
     const mockedReqBody: ProtoCardData = {
       name: "Seirroks",
-      image: "url",
+      image: "",
       position: "ST",
       nacionallity: "Spain",
       team: "FCB",
@@ -24,21 +27,28 @@ describe("Given a parseData moddleware", () => {
     };
 
     const cardJson = JSON.stringify(mockedReqBody);
+
+    jest
+      .spyOn(path, "join")
+      .mockReturnValue(`${path.join("uploads", "images")}`);
+
+    jest.spyOn(fs, "rename").mockResolvedValue();
+
     const req = {
       body: { card: cardJson },
-      file: { filename: "fileTest" },
+      file: { filename: "", originalname: "" },
     } as Partial<Request>;
 
     const res = {} as Partial<Response>;
 
     const next = jest.fn() as NextFunction;
 
-    xtest("Then it should asign the data as req body", async () => {
+    test("Then it should asign the data as req body", async () => {
       await parseData(req as Request, res as Response, next);
 
-      expect(req.body).toBe({
+      expect(req.body).toStrictEqual({
         ...mockedReqBody,
-        image: req.file.filename,
+        picture: `${Date.now()}${req.file.filename}`,
       });
 
       expect(next).toHaveBeenCalled();

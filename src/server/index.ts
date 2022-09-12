@@ -8,7 +8,7 @@ import cardsRouter from "./routers/cardsRouter";
 const app = express();
 app.disable("x-powered-by");
 
-app.use(cors());
+app.use(cors({ origin: true, credentials: true }));
 app.disable("x-powered-by");
 app.use(morgan("dev"));
 app.use(express.static("uploads"));
