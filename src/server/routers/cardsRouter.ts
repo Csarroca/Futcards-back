@@ -5,6 +5,7 @@ import {
   deleteById,
   getAllCards,
   getById,
+  getByPosition,
   updateCard,
 } from "../controllers/cards/cardsControllers";
 import authentication from "../middlewares/authentication";
@@ -33,5 +34,7 @@ cardsRouter.put(
   supabaseUpload,
   updateCard
 );
+
+cardsRouter.get("/category/:category", getByPosition);
 
 export default cardsRouter;
