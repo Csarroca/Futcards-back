@@ -7,7 +7,7 @@ import supabaseUpload from "./supaBase";
 const url = "futCards.com";
 const req = {
   body: {
-    image: "card.jpg",
+    image: "cards.jpg",
   },
 } as Partial<Request>;
 const res = {} as Partial<Response>;
