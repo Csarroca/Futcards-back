@@ -1,13 +1,11 @@
+import "../../loadEnvironment";
 import { NextFunction, Request, Response } from "express";
 import { readFile } from "fs/promises";
 import { createClient } from "@supabase/supabase-js";
 import path from "path";
 import createCustomError from "../../utils/createCustomError/createCustomError";
 
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_KEY
-);
+const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPA_KEY);
 
 const supabaseUpload = async (
   req: Request,
@@ -21,7 +19,7 @@ const supabaseUpload = async (
   try {
     const fileData = await readFile(imagePath);
 
-    const storage = supabase.storage.from("images");
+    const storage = supabase.storage.from("futcards");
 
     const uploadResult = await storage.upload(imagePath, fileData);
 
