@@ -125,10 +125,11 @@ export const updateCard = async (
     position,
     shooting,
     team,
+    owner,
   }: CardData = req.body;
 
   try {
-    const cardToUpdate = await Card.findById({ _id: id });
+    // const cardToUpdate = await Card.findById({ _id: id });
 
     const cardUpdated = {
       age,
@@ -141,7 +142,7 @@ export const updateCard = async (
       nacionallity,
       name,
       overall,
-      owner: cardToUpdate.id,
+      owner,
       pace,
       passing,
       physicall,
