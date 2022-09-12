@@ -40,7 +40,7 @@ export interface CardData {
 
 export interface ProtoCardData {
   name: string;
-  image: string;
+  image?: string;
   position: string;
   nacionallity: string;
   team: string;
