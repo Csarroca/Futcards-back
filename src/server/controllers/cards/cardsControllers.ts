@@ -129,8 +129,6 @@ export const updateCard = async (
   }: CardData = req.body;
 
   try {
-    // const cardToUpdate = await Card.findById({ _id: id });
-
     const cardUpdated = {
       age,
       defense,

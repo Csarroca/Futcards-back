@@ -37,7 +37,7 @@ export interface CardData {
   age: number;
   foot: string;
   owner: string;
-  backupImage?: String;
+  backupImage?: string;
 }
 
 export interface ProtoCardData {
