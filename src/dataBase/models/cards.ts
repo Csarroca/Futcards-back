@@ -76,6 +76,10 @@ const cardSchema = new Schema({
   owner: {
     type: Schema.Types.ObjectId,
     ref: "User",
+
+    backupImage: {
+      type: String,
+    },
   },
 });
 

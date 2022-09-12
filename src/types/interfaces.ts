@@ -6,6 +6,7 @@ export interface UserData {
 export interface CustomError extends Error {
   statusCode: number;
   errorMessage: string;
+  privateMessage: string;
 }
 
 export interface AuthData {
@@ -36,6 +37,7 @@ export interface CardData {
   age: number;
   foot: string;
   owner: string;
+  backupImage?: String;
 }
 
 export interface ProtoCardData {
