@@ -35,6 +35,6 @@ cardsRouter.put(
   updateCard
 );
 
-cardsRouter.get("/category/:category", getByPosition);
+cardsRouter.get("/position/:position", getByPosition);
 
 export default cardsRouter;
