@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from "express";
 import fs from "fs/promises";
 import path from "path";
 import { ProtoCardData } from "../../types/interfaces";
-import createCustomError from "../../utils/createCustomError/createCustomError";
 import parseData from "./parseData";
 
 describe("Given a parseData middleware", () => {
