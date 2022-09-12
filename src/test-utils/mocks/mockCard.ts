@@ -17,7 +17,7 @@ const mockedCard: CardData = {
   height: 1.81,
   age: 29,
   foot: "L",
-  owner: "aqqee12kk34d",
+  owner: "6315a4d16162d2a25a89a42e",
 };
 
 export default mockedCard;
