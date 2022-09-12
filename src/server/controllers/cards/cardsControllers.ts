@@ -162,3 +162,17 @@ export const updateCard = async (
     next(errorCustom);
   }
 };
+
+export const getByPosition = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { position } = req.params;
+  try {
+    const games = await Card.find({ position });
+    res.status(200).json({ games });
+  } catch (error) {
+    next(createCustomError(404, "Cannot get games", "No games found"));
+  }
+};
