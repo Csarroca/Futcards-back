@@ -170,8 +170,8 @@ export const getByPosition = async (
 ) => {
   const { position } = req.params;
   try {
-    const games = await Card.find({ position });
-    res.status(200).json({ games });
+    const cards = await Card.find({ position });
+    res.status(200).json({ cards });
   } catch (error) {
     next(createCustomError(404, "Cannot get games", "No games found"));
   }
