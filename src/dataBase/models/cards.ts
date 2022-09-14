@@ -16,12 +16,10 @@ const cardSchema = new Schema({
 
   nacionallity: {
     type: String,
-    required: true,
   },
 
   team: {
     type: String,
-    required: true,
   },
 
   overall: {
