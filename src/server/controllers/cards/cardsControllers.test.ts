@@ -4,7 +4,13 @@ import User from "../../../dataBase/models/users";
 import mockedCard from "../../../test-utils/mocks/mockCard";
 import createCustomError from "../../../utils/createCustomError/createCustomError";
 import { CustomRequest } from "../../middlewares/authentication";
-import { createCard, deleteById, getAllCards } from "./cardsControllers";
+import {
+  createCard,
+  deleteById,
+  getAllCards,
+  getByPosition,
+  updateCard,
+} from "./cardsControllers";
 
 afterEach(() => {
   jest.clearAllMocks();
@@ -173,6 +179,93 @@ describe("Given a createCard function controller", () => {
       );
 
       expect(next).toHaveBeenCalledWith(error);
+    });
+  });
+});
+
+describe("Given a updateCard function controller", () => {
+  describe("When it's called with a request, response and a Next function", () => {
+    xtest("Then it should call the status method of the response and the json", async () => {
+      const next = jest.fn() as Partial<NextFunction>;
+
+      const req = {
+        body: { mockedCard },
+        params: { id: mockedCard.id },
+      } as Partial<Request>;
+
+      const res: Partial<Response> = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn().mockResolvedValue({ mockedCard }),
+      };
+
+      Card.findByIdAndUpdate = jest.fn().mockResolvedValue(mockedCard);
+
+      await updateCard(req as Request, res as Response, next as NextFunction);
+
+      expect(res.status).toHaveBeenCalledWith(201);
+      expect(res.json).toHaveBeenCalledWith({ card: mockedCard });
+    });
+
+    xtest("Then it should next with an error if it cannot complete the update", async () => {
+      const error = createCustomError(400, "Could not update your card");
+      const req = {
+        params: mockedCard.id as unknown,
+      } as Partial<Request>;
+      const res: Partial<Response> = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn().mockResolvedValue([]),
+      };
+      const next = jest.fn();
+      Card.findByIdAndUpdate = jest.fn().mockRejectedValue(error);
+
+      await updateCard(req as Request, res as Response, next as NextFunction);
+
+      expect(next).toHaveBeenCalledWith(error);
+    });
+  });
+});
+
+describe("Given a getByPosition function controller", () => {
+  describe("When it's invoked with getByCategory method", () => {
+    test("Then it should call the status method with a 200 and json with the games found", async () => {
+      const req = {
+        params: "ST" as unknown,
+      } as Partial<Request>;
+      const res: Partial<Response> = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn().mockResolvedValue({ mockedCard }),
+      };
+      const next = jest.fn();
+      Card.find = jest.fn().mockResolvedValue(mockedCard);
+
+      await getByPosition(
+        req as Request,
+        res as Response,
+        next as NextFunction
+      );
+
+      // expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.json).toHaveBeenCalledWith({ cards: mockedCard });
+    });
+    test("Then it should next with an error if the function throw an error ", async () => {
+      const error = new Error();
+      const req = {
+        params: mockedCard.position as unknown,
+      } as Partial<Request>;
+      const res: Partial<Response> = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn().mockResolvedValue([]),
+      };
+      const next = jest.fn();
+      Card.find = jest.fn().mockRejectedValue(error);
+
+      await getByPosition(
+        req as Request,
+        res as Response,
+        next as NextFunction
+      );
+
+      expect(next).toHaveBeenCalled();
     });
   });
 });

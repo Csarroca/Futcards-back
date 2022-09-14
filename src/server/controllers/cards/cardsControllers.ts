@@ -126,6 +126,7 @@ export const updateCard = async (
     shooting,
     team,
     owner,
+    backupImage,
   }: CardData = req.body;
 
   try {
@@ -147,6 +148,7 @@ export const updateCard = async (
       position,
       shooting,
       team,
+      backupImage,
     };
 
     await Card.findByIdAndUpdate(id, cardUpdated);
@@ -173,6 +175,6 @@ export const getByPosition = async (
     const cards = await Card.find({ position });
     res.status(200).json({ cards });
   } catch (error) {
-    next(createCustomError(404, "Cannot get games", "No games found"));
+    next(createCustomError(404, "Cannot get cards", "No cards found"));
   }
 };

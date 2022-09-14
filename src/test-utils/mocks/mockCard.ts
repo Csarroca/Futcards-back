@@ -15,7 +15,7 @@ const mockedCard: CardData = {
   shooting: 99,
   dribbling: 98,
   height: 1.81,
-  age: 29,
+  age: 30,
   foot: "L",
   owner: "6315a4d16162d2a25a89a42e",
 };
