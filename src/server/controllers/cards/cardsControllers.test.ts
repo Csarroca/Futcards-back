@@ -247,7 +247,6 @@ describe("Given a getByPosition function controller", () => {
         next as NextFunction
       );
 
-      // expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledWith({ cards: mockedCard });
     });
     test("Then it should next with an error if the function throw an error ", async () => {
