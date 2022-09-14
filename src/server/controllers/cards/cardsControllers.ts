@@ -19,7 +19,7 @@ export const getAllCards = async (
       return;
     }
 
-    res.status(201).json(allCards);
+    res.status(200).json(allCards);
   } catch (error) {
     const newError = createCustomError(
       404,
@@ -110,8 +110,8 @@ export const updateCard = async (
 ) => {
   const { id } = req.params;
   const {
-    age,
     defense,
+    age,
     dribbling,
     foot,
     height,
@@ -128,7 +128,6 @@ export const updateCard = async (
     owner,
     backupImage,
   }: CardData = req.body;
-
   try {
     const cardUpdated = {
       age,

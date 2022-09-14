@@ -38,7 +38,7 @@ describe("Given a cardsRouter", () => {
       const { body } = await request(app)
         .get("/cards")
         .set("Authorization", `Bearer ${token}`)
-        .expect(201);
+        .expect(200);
 
       expect(body).toHaveLength(1);
     });
