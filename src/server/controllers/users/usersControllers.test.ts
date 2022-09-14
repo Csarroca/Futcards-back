@@ -168,13 +168,15 @@ describe("Given a loginUser controller function", () => {
 
     hashCompareValue = true;
 
-    User.find = jest.fn().mockRejectedValue(new Error());
+    User.find = jest
+      .fn()
+      .mockRejectedValue(new Error("User name and password don't match"));
 
     await loginUser(req as Request, res as Response, next as NextFunction);
 
     const customError = createCustomError(
       400,
-      "User invalid",
+      "User name and password don't match",
       "user or password not valid"
     );
 

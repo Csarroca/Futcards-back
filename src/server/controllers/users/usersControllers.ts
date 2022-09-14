@@ -66,9 +66,7 @@ export const loginUser = async (
   } catch (error) {
     const finalError = createCustomError(
       403,
-      error.message === ""
-        ? "User invalid"
-        : `name:${(error as Error).name} ; message ${(error as Error).message}`,
+      error.message,
       "user or password not valid"
     );
     next(finalError);
