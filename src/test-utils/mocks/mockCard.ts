@@ -18,6 +18,7 @@ const mockedCard: CardData = {
   age: 30,
   foot: "L",
   owner: "6315a4d16162d2a25a89a42e",
+  backupImage: "",
 };
 
 export default mockedCard;
